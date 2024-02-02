@@ -1,62 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application de Banque</title>
-    <!-- Incluez vos feuilles de style CSS ici si nécessaire -->
+    <link rel="stylesheet" href="styles.css">
+    <title>Wallet App</title>
+
 </head>
 <body>
-    <div id="root" class="wallet-app-container">
-        <!-- Le contenu sera généré dynamiquement par JavaScript -->
-    </div>
+    <div id="app"></div>
 
-    <!-- Incluez vos scripts JavaScript ici -->
-    <script>
-        // Fonction pour afficher le solde et les transactions à partir de QB-Banking
-        function displayWalletFromQB(data) {
-            const appContainer = document.querySelector('.wallet-app-container');
-
-            // Crée une div pour afficher le solde
-            const balanceDiv = document.createElement('div');
-            balanceDiv.classList.add('balance');
-            balanceDiv.innerHTML = `Solde: $${data.balance.toFixed(2)}`;
-
-            // Crée une liste pour afficher les transactions
-            const transactionsList = document.createElement('ul');
-            transactionsList.classList.add('transactions-list');
-
-            // Ajoute chaque transaction à la liste
-            data.transactions.forEach(transaction => {
-                const transactionItem = document.createElement('li');
-                transactionItem.innerHTML = `${transaction.company}: ${transaction.amount > 0 ? '+' : ''}$${Math.abs(transaction.amount.toFixed(2))}`;
-                transactionsList.appendChild(transactionItem);
-            });
-
-            // Efface le contenu précédent de l'application
-            appContainer.innerHTML = '';
-
-            // Ajoute les éléments à l'application
-            appContainer.appendChild(balanceDiv);
-            appContainer.appendChild(transactionsList);
-        }
-
-        // Fonction pour charger les données initiales de l'application depuis QB-Banking
-        function loadDataFromQB() {
-            // Appelle QB-Banking pour obtenir les données du portefeuille
-            const walletData = QB_Banking.getWalletData(); // Adapté selon la structure de QB-Banking
-
-            // Affiche les données dans l'interface utilisateur
-            displayWalletFromQB(walletData);
-        }
-
-        // Initialise l'application
-        function init() {
-            loadDataFromQB();
-        }
-
-        // Appelle la fonction d'initialisation lorsque la page est chargée
-        window.addEventListener('load', init);
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
