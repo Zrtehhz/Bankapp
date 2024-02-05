@@ -2,12 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>Wallet App</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Ajoutez ici votre CSS pour la mise en page */
+    </style>
 </head>
 <body>
-    <div id="app"></div>
-    <script src="app.js"></script>
+    <div id="walletApp">
+        <div id="balanceSection">Solde : <span id="balance">0</span></div>
+        <div id="sendMoneySection">
+            Envoyer de l'argent :
+            <input type="text" id="recipientNumber" placeholder="Numéro du destinataire">
+            <input type="number" id="amountToSend" placeholder="Montant à envoyer" min="1" step="1">
+            <button id="sendMoneyButton">Envoyer</button>
+        </div>
+        <div id="transactionsSection">
+            Transactions récentes :
+            <ul id="transactionsList"></ul>
+        </div>
+    </div>
+
+    <script src="walletApp.js"></script>
 </body>
 </html>

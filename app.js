@@ -1,63 +1,39 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const appElement = document.getElementById('app');
-    let balanceInfo = { balance: 0, transactions: [], bills: [] };
-    let isSending = false;
-    let recipient = "";
-    let step = 0;
-    let amount = "";
-    let isValid = false;
-    let errorMessage = null;
+document.addEventListener('DOMContentLoaded', function() {
+    const balanceElement = document.getElementById('balance');
+    const transactionsList = document.getElementById('transactionsList');
+    const sendMoneyButton = document.getElementById('sendMoneyButton');
 
-    function render() {
-        appElement.innerHTML = `
-            <div class="${isSending ? '' : 'hidden'}">
-                <p>Balance: ${balanceInfo.balance}</p>
-                <p>Transactions:</p>
-                <ul>
-                    ${balanceInfo.transactions.map(t => `<li>${t.description}: ${t.amount}</li>`).join('')}
-                </ul>
-                <input type="text" id="inputValue" placeholder="${step === 0 ? 'Recipient' : 'Amount'}">
-                <button id="nextStep" ${isValid ? '' : 'disabled'}>Suivant</button>
-                ${errorMessage ? `<div class="error-message">${errorMessage}</div>` : ''}
-            </div>
-            <div class="${isSending ? 'hidden' : ''}">
-                <button id="sendMoney">Envoyer de l'argent</button>
-            </div>
-        `;
+    let balance = 0; 
+    let transactions = []; 
 
-        document.getElementById('sendMoney')?.addEventListener('click', function () {
-            isSending = true;
-            render();
-        });
-
-        document.getElementById('nextStep')?.addEventListener('click', function () {
-            proceedToNextStep();
-        });
-
-        document.getElementById('inputValue')?.addEventListener('input', function (e) {
-            if (step === 0) {
-                recipient = e.target.value;
-                validate();
-            } else {
-                amount = e.target.value;
-                validate();
-            }
+    function updateUI() {
+        balanceElement.textContent = balance.toFixed(2) + ' $';
+        transactionsList.innerHTML = ''; 
+        transactions.forEach(transaction => {
+            const li = document.createElement('li');
+            li.textContent = `${transaction.date}: ${transaction.amount} € - ${transaction.note}`;
+            transactionsList.appendChild(li);
         });
     }
 
-    function validate() {
-        // Simplified validation logic
-        isValid = true;
-        render();
+    function addTransaction(amount, note) {
+        const date = new Date().toLocaleDateString();
+        transactions.push({date, amount, note});
+        balance += amount;
+        updateUI();
     }
 
-    function proceedToNextStep() {
-        // Simplified logic for proceeding to the next step
-        console.log('Proceeding to next step...');
-        // Update your state variables and UI accordingly
-        render();
-    }
+    sendMoneyButton.addEventListener('click', function() {
+        const recipientNumber = document.getElementById('recipientNumber').value;
+        const amountToSend = parseFloat(document.getElementById('amountToSend').value);
+        
+        if (!recipientNumber || isNaN(amountToSend) || amountToSend <= 0) {
+            alert('Veuillez entrer un numéro valide et un montant positif.');
+            return;
+        }
 
-    // Initial render
-    render();
+        addTransaction(-amountToSend, `Envoyé à ${recipientNumber}`);
+    });
+
+    updateUI();
 });
