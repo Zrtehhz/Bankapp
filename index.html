@@ -2,27 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Wallet App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Application</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Ajoutez ici votre CSS pour la mise en page */
-    </style>
 </head>
 <body>
-    <div id="walletApp">
-        <div id="balanceSection">Solde : <span id="balance">0</span></div>
-        <div id="sendMoneySection">
-            Envoyer de l'argent :
-            <input type="text" id="recipientNumber" placeholder="Numéro du destinataire">
-            <input type="number" id="amountToSend" placeholder="Montant à envoyer" min="1" step="1">
-            <button id="sendMoneyButton">Envoyer</button>
+    <div class="wallet-app-container">
+        <div class="overview">
+            <div class="header-title">Your Wallet</div>
+            <div class="wrapper">
+                <section class="card"></section>
+                <section class="input space">
+                    <div class="item">
+                        <div class="title big">Balance</div>
+                        <div class="balance">
+                            <div class="value">$1,234.56</div>
+                        </div>
+                        <div class="button" onclick="openSendMoneyModal()">Send Money</div>
+                    </div>
+                </section>
+                <section>
+                    <div class="subtitle">
+                        <div class="title">Latest Transactions</div>
+                    </div>
+                    <div class="item multi">
+                        <img src="logo1.png" alt="Company Logo">
+                        <div class="info">
+                            <div class="transaction-header">
+                                <div class="title">Coffee Shop</div>
+                                <div class="right">
+                                    <div class="amount red">-$15.00</div>
+                                    <div class="date">May 10, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
-        <div id="transactionsSection">
-            Transactions récentes :
-            <ul id="transactionsList"></ul>
+        <div class="send-container">
+            <div class="send-header">
+                <div onclick="closeSendMoneyModal()">Cancel</div>
+                <div>Send</div>
+            </div>
+            <div class="send-wrapper">
+                <div class="user">
+                    <input type="text" placeholder="Enter phone number">
+                </div>
+                <div class="amount">
+                    <input type="number" placeholder="Enter amount">
+                </div>
+                <div class="button" onclick="sendMoney()">Confirm</div>
+                <div class="description">Transfers are instant and non-refundable.</div>
+            </div>
         </div>
     </div>
-
-    <script src="walletApp.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
+s
